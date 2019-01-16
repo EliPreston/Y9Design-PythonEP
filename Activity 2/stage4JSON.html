@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Stage 4 JSON Activity</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+
+
+</head>
+<body>
+
+
+
+
+
+<script>
+	var myData = "";
+	   var staticUrl = 'https://raw.githubusercontent.com/EliPreston/elipreston.github.io/master/Activity%202/data/Activity2JSONdata.json'; 
+
+	$.getJSON(staticUrl, function(data) {
+		console.log("Hello user, welcome to this meaningless plane of existance")
+		console.log("-------------------------------------------------")
+
+		console.log(data.fact[125].dims.COUNTRY)
+	    console.log(data.fact[125].dims.GHO)
+	    console.log(data.fact[125].dims.YEAR)
+	        console.log(data)
+	    });
+</script>
+
+
+
+</body>
+</html>
