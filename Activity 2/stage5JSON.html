@@ -3,7 +3,7 @@
 <head>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <title>Stage 4 JSON Activity</title>
+    <title>Stage 5 JSON Activity</title>
 
 
 <style>
@@ -13,29 +13,28 @@
         font-family: Arial, Helvetica, sans-serif;
     }
 
-    #div1 {
-        background: blue;
+
+
+
+    div {
         height: 50px;
         width: 0px;
         border-radius: 10px;  
+        background: blue;
     }
-    #div2 {
-        background: red;
-        height: 50px;
-        width: 0px;
-        border-radius: 10px;
-    }
-    #div3 {
-        background: green;
-        height: 50px;
-        width: 0px;
-        border-radius: 10px;
+
+
+
+
+
     }
 
     p {
-        font-size: 20px;
-        line-height: 50px;
-        margin-left: 30px;
+        margin-left: 10px;
+        white-space: pre-wrap;
+        display: inline-block;
+        vertical-align: middle;
+        line-height: normal;    
     }
 
 
@@ -44,15 +43,10 @@
 <body>
 
 
-<h1>HIV Infection Rates Compared Proportionally By Country<h1>
-    <div id = "div1"><p id = "p1"></p>
-    </div>
+    <h1>HIV Infection Rates Compared Proportionally By Country<h1>
 
-    <div id = "div2"><p id = "p2"></p>
-    </div>
-
-    <div id = "div3"><p id = "p3"></p>
-    </div>
+    <div id = "content">
+ </div>
 
 
 
@@ -62,28 +56,75 @@
 
 
 <script>
+
     var myData = "";
-       var staticUrl = 'https://raw.githubusercontent.com/EliPreston/elipreston.github.io/master/Activity%202/data/Activity2JSONdata.json'; 
+    var staticUrl = 'https://raw.githubusercontent.com/EliPreston/elipreston.github.io/master/Activity%202/data/Activity2JSONdata.json'; 
 
 
 
 
     $.getJSON(staticUrl, function(data) {
 
-        myData = data;
-    });
-
-
-    function adjustDisplay() {
-        
-         var currentTime = new Date().getTime();
-         while (currentTime +2000 >= new Date().getTime()) {
-        }
-
         iw = window.innerWidth - 100;
 
 
+        vstr = data.fact[1].Value;
+        largest = parseInt(vstr.substring(0,vstr.indexOf("[")).replace(" ",""));
 
+    for (i = 2; i < 194; i++) {
+        vstr = data.fact[i].Value;
+        cval = parseInt(vstr.substring(0,vstr.indexOf("[")).replace(" ",""));
+
+
+        if (isNaN(cval) === false) {
+            largest = Math.max(largest,cval)
+        }
+
+
+    }
+
+    console.log(largest)
+
+
+
+    for (i = 2; i < 194; i++) {
+        col = ["red","green","blue"];
+        
+        vstr = data.fact[i].Value;
+        cval = parseInt(vstr.substring(0,vstr.indexOf("[")).replace(" ",""));
+            
+    if (isNaN(cval) === false) {
+      
+        var div = document.createElement("div");
+        div.setAttribute("id","div"+i);
+            
+        val1 = parseInt(cval/largest*iw);
+
+
+        document.getElementById("content").appendChild(div);
+        console.log(document.getElementById("div"+i))
+            
+
+
+
+
+            
+        document.getElementById("div"+i).style.width = val1+"px";
+        document.getElementById("div"+i).style.backgroundColor = col[i%3];
+                            
+        var p = document.createElement("p");
+        p.setAttribute("id","p"+i);
+
+        tcountry = String(data.fact[i].dims.COUNTRY);
+
+        console.log(tcountry);
+        document.getElementById("div"+i).appendChild(p);
+        document.getElementById("p"+i).innerHTML = "<pre>"+tcountry+" - "+cval+"</pre>";    
+                
+            }
+       
+        }
+});
 
 
 
@@ -98,7 +139,7 @@
 
         val1 = parseInt(country1.substring(0,country1.indexOf("[")).replace(" ",""));
         val2 = parseInt(country2.substring(0,country2.indexOf("[")).replace(" ",""));
-        val3 = parseInt(country3.substring(0,country3.indexOf("[")).replace(" ",""));*/
+        val3 = parseInt(country3.substring(0,country3.indexOf("[")).replace(" ",""));
 
 
 
@@ -144,9 +185,7 @@
 
     window.onload = function(event) {
             adjustDisplay();
-    }
-
-
+    }*/
 
 
 
