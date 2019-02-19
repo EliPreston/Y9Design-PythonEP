@@ -6,51 +6,37 @@
     <title>Stage 5 JSON Activity</title>
 
 
-<style>
+    <style>
+
+        div {
+            height: 50px; 
+            width: 0px;
+            border-radius: 10px;
+            background-color:red;
+        }
+
+        h1 {
+            margin: auto;
+            line-height: 50px;
+            display: table;
+        }
+
+        p {
+            margin-left: 10px;
+            font-size: 20px;
+            vertical-align: middle;
+            line-height: 50px;
+        }
 
 
-    body {
-        font-family: Arial, Helvetica, sans-serif;
-    }
-
-
-
-
-    div {
-        height: 50px;
-        width: 0px;
-        border-radius: 10px;  
-        background: blue;
-    }
-
-
-
-
-
-    }
-
-    p {
-        margin-left: 10px;
-        white-space: pre-wrap;
-        display: inline-block;
-        vertical-align: middle;
-        line-height: normal;    
-    }
-
-
-</style>
-</head>
+    </style>
+</head> 
 <body>
-
 
     <h1>HIV Infection Rates Compared Proportionally By Country<h1>
 
     <div id = "content">
- </div>
-
-
-
-
+    </div>
 
 
 
@@ -60,132 +46,79 @@
     var myData = "";
     var staticUrl = 'https://raw.githubusercontent.com/EliPreston/elipreston.github.io/master/Activity%202/data/Activity2JSONdata.json'; 
 
-
-
-
     $.getJSON(staticUrl, function(data) {
+
+        
 
         iw = window.innerWidth - 100;
 
 
-        vstr = data.fact[1].Value;
-        largest = parseInt(vstr.substring(0,vstr.indexOf("[")).replace(" ",""));
+        countryData = data.fact[1].Value;
 
-    for (i = 2; i < 194; i++) {
-        vstr = data.fact[i].Value;
-        cval = parseInt(vstr.substring(0,vstr.indexOf("[")).replace(" ",""));
-
-
-        if (isNaN(cval) === false) {
-            largest = Math.max(largest,cval)
-        }
-
-
-    }
-
-    console.log(largest)
+        loc = countryData.indexOf("[");
+        val = countryData.substring(0,loc);
+        val = val.replace(/ /g,"");
+        val = parseInt(val);
+        largest = val;
+        console.log(largest)
+        len = data.fact.length;
 
 
 
-    for (i = 2; i < 194; i++) {
-        col = ["red","green","blue"];
-        
-        vstr = data.fact[i].Value;
-        cval = parseInt(vstr.substring(0,vstr.indexOf("[")).replace(" ",""));
-            
-    if (isNaN(cval) === false) {
-      
-        var div = document.createElement("div");
-        div.setAttribute("id","div"+i);
-            
-        val1 = parseInt(cval/largest*iw);
+        for (i = 0; i < len; i = i + 1) {
+            countryData = data.fact[i].Value;
+            loc = countryData.indexOf("[");
 
+            val = countryData.substring(0,loc);
+            val = val.replace(/ /g,"");
+            val = parseInt(val);
 
-        document.getElementById("content").appendChild(div);
-        console.log(document.getElementById("div"+i))
-            
-
-
-
-
-            
-        document.getElementById("div"+i).style.width = val1+"px";
-        document.getElementById("div"+i).style.backgroundColor = col[i%3];
-                            
-        var p = document.createElement("p");
-        p.setAttribute("id","p"+i);
-
-        tcountry = String(data.fact[i].dims.COUNTRY);
-
-        console.log(tcountry);
-        document.getElementById("div"+i).appendChild(p);
-        document.getElementById("p"+i).innerHTML = "<pre>"+tcountry+" - "+cval+"</pre>";    
-                
+            if (isNaN(val) === false) {
+                largest = Math.max(largest,val);
             }
-       
         }
+
+
+
+
+
+        for (i = 0 ; i < len; i = i + 1) {
+            countryData = data.fact[i].Value; 
+
+            loc = countryData.indexOf("[");
+            val = countryData.substring(0,loc);
+            val = val.replace(/ /g,"");  
+            val = parseInt(val);
+            vals = val/largest*iw;
+
+
+
+            if (isNaN(vals) === false) {
+                var div = document.createElement("div");
+
+                document.getElementById("content").appendChild(div);
+
+                div.setAttribute("id","div"+i);  
+                div.style.width = vals+"px";
+
+                var p = document.createElement("p");        
+                document.getElementById("div"+i).appendChild(p);                
+                p.setAttribute("id","p"+i);
+
+                country = data.fact[i].dims.COUNTRY;                
+                p.innerHTML = "<pre>"+country+": "+val+"</pre>";
+
+
+            }
+        }
+
+
+
+
+                
+
 });
 
-
-
-
-        /*console.log(data.fact[1].dims.COUNTRY);
-        console.log(data.fact[1].dims.GHO);
-        console.log(data.fact[1].dims.YEAR);
-
-        country1 = data.fact[1].Value;
-        country2 = data.fact[2].Value;
-        country3 = data.fact[4].Value;
-
-        val1 = parseInt(country1.substring(0,country1.indexOf("[")).replace(" ",""));
-        val2 = parseInt(country2.substring(0,country2.indexOf("[")).replace(" ",""));
-        val3 = parseInt(country3.substring(0,country3.indexOf("[")).replace(" ",""));
-
-
-
-
-    country1 = data.fact[1].Value;
-    val1 = parseInt(country1.substring(0,country1.indexOf("[")).replace(" ",""));
-
-    country2 = data.fact[2].Value;
-    val2 = parseInt(country1.substring(0,country2.indexOf("[")).replace(" ",""));
-
-    country3 = data.fact[3].Value;
-    val3 = parseInt(country3.substring(0,country3.indexOf("[")).replace(" ",""));
-
-
-
-
-
-
-    largest = Math.max(val1,val2,val3);
-    console.log(largest);
-
-
-    val1 = val1/largest*iw;
-    val2 = val2/largest*iw;
-    val3 = val3/largest*iw;
-
-
-
-
-    document.getElementById("div1").style.width = val1+"px";
-    document.getElementById("div2").style.width = val2+"px";
-    document.getElementById("div3").style.width = val3+"px";
-        
-    document.getElementById("p1").innerHTML = "<pre>"+myData.fact[1].dims.COUNTRY + " : "+val1+"</pre>"
-    document.getElementById("p2").innerHTML = "<pre>"+myData.fact[2].dims.COUNTRY + " : "+val2+"</pre>"
-    document.getElementById("p3").innerHTML = "<pre>"+myData.fact[3].dims.COUNTRY + " : "+val3+"</pre>"
-    }
-
-    window.onresize = function(event) {
-            adjustDispaly()
-
-    };
-
-    window.onload = function(event) {
-            adjustDisplay();
-    }*/
 
 
 
