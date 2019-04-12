@@ -36,7 +36,7 @@ body {
 .btnsec {
   width: 100%;
   height: 49px;
-  align-content: center;    
+  align-content: center;
 }
 
 .jumpbtns {
@@ -55,7 +55,6 @@ body {
   display: flex;
   justify-content: center;
   background: black;
-
 }
 
 .flex-container > div {
@@ -64,10 +63,25 @@ body {
   font-size: 15px;
 }
 
-.wrapper-donate {
+.donatediv {
+  padding: 10px;
+  padding-top: 20px;
   background: black;
-  padding: 32px;
   text-align: center;
+}
+
+.donatebtn {
+  background: white;
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  color: black;
+  margin: 4px 2px;
+  font-size: 16px;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 4px;
 }
 
 
@@ -122,8 +136,72 @@ body {
   font-size: 60px;
 }
 
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: center;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+}
+
+.active .accordion:hover {
+  background-color: #ccc; 
+}
+
+.panel {
+  padding: 0 18px;
+  display: none;
+  background-color: white;
+  overflow: hidden;
+}
+
+.wrapper2 {
+  width: 100%;
+  height: 200px;
+  border: 1px solid #c3c3c3;
+  
+}
+
+.wrapper2 > div {
+  position: relative;
+}
 
 
+.section1 {
+  width: 50%;
+  height: 200px;
+
+}
+
+.section2  {
+  width: 50%;
+  left: 50%;
+  top: -200px;
+  height:200px;
+}
+.wrapper3 {
+  width: 50%;
+  height: 200px;
+  border: 1px solid #c3c3c3;
+  display: flex;
+  flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
+  float: right;
+}
+
+.footer {
+  padding: 10px;
+  background-color: blue;
+  font-size: 15px;
+  text-align: center;
+  bottom: 0;
+}
 
 @media screen and (max-height: 450px) {
   .overlay a {font-size: 20px}
